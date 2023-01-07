@@ -6,10 +6,13 @@ import com.example.bookapp.data.repository.Repository
 import com.example.bookapp.domain.repository.DataStoreOperations
 import com.example.bookapp.domain.use_cases.UseCases
 import com.example.bookapp.domain.use_cases.get_all_books.GetAllBooksUseCase
+import com.example.bookapp.domain.use_cases.get_all_jetpacks.GetAllJetpacksUseCase
 import com.example.bookapp.domain.use_cases.get_selected_book.GetSelectedBookUseCase
+import com.example.bookapp.domain.use_cases.get_selected_jetpack.GetSelectedJetpackUseCase
 import com.example.bookapp.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
 import com.example.bookapp.domain.use_cases.save_onboarding.SaveOnBoardingUseCase
 import com.example.bookapp.domain.use_cases.search_books.SearchBooksUseCase
+import com.example.bookapp.domain.use_cases.search_jetpack.SearchJetpackUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,7 +40,10 @@ object RepositoryModule {
             readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
             getAllBooksUseCase = GetAllBooksUseCase(repository),
             searchBooksUseCase = SearchBooksUseCase(repository),
-            getSelectedBookUseCase = GetSelectedBookUseCase(repository)
+            getSelectedBookUseCase = GetSelectedBookUseCase(repository),
+            getAllJetpacksUseCase = GetAllJetpacksUseCase(repository),
+            searchJetpacksUseCase = SearchJetpackUseCase(repository),
+            getSelectedJetpackUseCase = GetSelectedJetpackUseCase(repository)
         )
     }
 

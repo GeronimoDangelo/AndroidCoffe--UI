@@ -25,15 +25,17 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context,
             BookDatabase::class.java,
-            BOOK_DATABASE
+            BOOK_DATABASE,
         ).build()
     }
+
 
     @Provides
     @Singleton
     fun provideLocalDataSource(database: BookDatabase): LocalDataSource{
         return LocalDataSourceImpl(
-            bookDatabase = database
+            bookDatabase = database,
+
         )
     }
 

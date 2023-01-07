@@ -61,7 +61,7 @@ fun CategoryList(navHostController: NavHostController) {
                 modifier = Modifier
                     .height(400.dp)
                     .clickable {
-                        navHostController.navigate(Screen.Home.route)
+                        navHostController.navigate(Screen.Jetpack.route)
                     },
                 contentAlignment = Alignment.BottomStart,
             ) {
@@ -85,7 +85,7 @@ fun CategoryList(navHostController: NavHostController) {
                 modifier = Modifier
                     .height(400.dp)
                     .clickable {
-                        navHostController.navigate(Screen.Home.route)
+                        navHostController.navigate(Screen.Splash.route)
                     },
                 contentAlignment = Alignment.BottomStart,
             ) {
