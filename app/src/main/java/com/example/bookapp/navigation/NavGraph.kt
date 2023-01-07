@@ -10,8 +10,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.bookapp.presentation.screens.category.CategoryScreen
 import com.example.bookapp.presentation.screens.details.DetailsScreen
+import com.example.bookapp.presentation.screens.detailsjetpack.JetpackDetailsScreen
 import com.example.bookapp.presentation.screens.home.HomeScreen
 import com.example.bookapp.presentation.screens.jetpack.JetpackScreen
+import com.example.bookapp.presentation.screens.jetpacksearch.JetpackSearchScreen
 import com.example.bookapp.presentation.screens.search.SearchScreen
 import com.example.bookapp.presentation.screens.splash.SplashScreen
 import com.example.bookapp.presentation.screens.welcome.WelcomeScreen
@@ -58,19 +60,22 @@ fun SetupNavGraph(navController: NavHostController) {
 
 
         //SCREEN JETPACK
-
-
         composable(route = Screen.Jetpack.route) {
             JetpackScreen(navHostController = navController)
         }
 
         composable(
             route = Screen.DetailsJetpack.route,
-            arguments = listOf(navArgument(DETAILS_JETPACK_KEY) {
+            arguments = listOf(navArgument("jetId") {
                 type = NavType.IntType
             })
         ) {
+            JetpackDetailsScreen(navHostController = navController)
         }
+        composable(route = Screen.JetpackSearch.route){
+            JetpackSearchScreen(navHostController = navController)
+        }
+
 
 
     }

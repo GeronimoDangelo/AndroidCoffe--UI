@@ -19,6 +19,7 @@ fun DetailsScreen(
     navHostController: NavHostController,
     detailsViewModel: DetailsViewModel = hiltViewModel()
 ) {
+
     val selectedBook by detailsViewModel.selectedBook.collectAsState()
     val colorPalette by detailsViewModel.colorPalette
 

@@ -1,5 +1,6 @@
 package com.example.bookapp.presentation.common
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,6 +36,7 @@ import com.example.bookapp.ui.theme.LARGE_PADDING
 import com.example.bookapp.ui.theme.MEDIUM_PADDING
 import com.example.bookapp.ui.theme.SMALL_PADDING
 import com.example.bookapp.util.Constants
+import com.example.bookapp.util.Constants.BASE_URL
 
 @Composable
 fun JetpackList(
@@ -43,6 +45,7 @@ fun JetpackList(
 ) {
 
     val result = handlePagingJetpackResult(jetpacks = jetpacks)
+    Log.d("ListContent", jetpacks.loadState.toString())
 
     if (result) {
         LazyColumn(
@@ -105,7 +108,7 @@ fun JetpackItem(
         modifier = Modifier
             .height(BOOK_ITEM_HEIGHT)
             .clickable {
-                navHostController.navigate(Screen.DetailsJetpack.passJetId(jetId = jetpack.id))
+                navHostController.navigate(Screen.DetailsJetpack.passJetId(jetpack.id))
             },
         contentAlignment = Alignment.BottomStart
     ) {
@@ -113,7 +116,7 @@ fun JetpackItem(
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(data = "${Constants.BASE_URL}${jetpack.image}")
+                    .data(data = "$BASE_URL${jetpack.image}")
                     .placeholder(drawableResId = R.drawable.placeholder)
                     .error(drawableResId = R.drawable.placeholder)
                     .build(), contentDescription = "",

@@ -26,7 +26,7 @@ fun JetpackScreen(navHostController: NavHostController, jetpackViewModel: Jetpac
 
     Scaffold(topBar = {
         JetpackTopBar(
-            onSearchClicked = { navHostController.navigate(Screen.Search.route) },
+            onSearchClicked = { navHostController.navigate(Screen.JetpackSearch.route) },
             onBackClick = { navHostController.popBackStack() }
         )
 
