@@ -8,32 +8,31 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.bookapp.navigation.Screen
-import com.example.bookapp.presentation.common.ListJetpack
+import com.example.bookapp.presentation.common.JetpackList
 import com.example.bookapp.ui.theme.topBarBg
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun JetpackScreen(
-    navHostController: NavHostController,
-    jetpackViewModel: JetpackViewModel = hiltViewModel()
-) {
+fun JetpackScreen(navHostController: NavHostController, jetpackViewModel: JetpackViewModel = hiltViewModel()) {
 
-    val allJetpacks = jetpackViewModel.getAllJetpacks.collectAsLazyPagingItems()
+    val jetpacks = jetpackViewModel.getAllJetpacks.collectAsLazyPagingItems()
 
     val systemUiController = rememberSystemUiController()
-    val sys = MaterialTheme.colors.topBarBg
+    val topBarColor = MaterialTheme.colors.topBarBg
 
     SideEffect {
-        systemUiController.setStatusBarColor(color = sys)
+        systemUiController.setStatusBarColor(color = topBarColor)
     }
 
+    Scaffold(topBar = {
+        JetpackTopBar(
+            onSearchClicked = { navHostController.navigate(Screen.Search.route) },
+            onBackClick = { navHostController.popBackStack() }
+        )
 
-    Scaffold(
-        topBar = {
-            JetpackTopBar(onSearchClicked = {navHostController.navigate(Screen.Search.route)}, onBackClicked = { navHostController.popBackStack()})
-        },
-        content = {
-            ListJetpack(jetpacks = allJetpacks, navHostController = navHostController)
-        }
-    )
+    }, content = {
+            JetpackList(jetpacks = jetpacks , navHostController = navHostController )
+    })
+
+
 }

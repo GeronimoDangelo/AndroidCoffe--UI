@@ -11,8 +11,9 @@ sealed class Screen(val route: String) {
         }
     }
     object Search : Screen("search_screen")
+    //jetpack
     object Jetpack : Screen("jetpack_screen")
-    object DetailsJet : Screen("jetdetails_screen/{jetId}") {
+    object DetailsJetpack : Screen("jetpackdetails_screen/{jetId}") {
         fun passJetId(jetId: Int): String {
             return "details_screen/$jetId"
         }

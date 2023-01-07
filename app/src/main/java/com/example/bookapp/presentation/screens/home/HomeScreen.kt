@@ -30,7 +30,8 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            HomeTopBar(onSearchClicked = {navHostController.navigate(Screen.Search.route)}, onBackClicked = { navHostController.popBackStack()})
+            HomeTopBar(onSearchClicked = { navHostController.navigate(Screen.Search.route) },
+                onBackClicked = { navHostController.popBackStack() })
         },
         content = {
             ListContent(books = allBooks, navHostController = navHostController)

@@ -1,7 +1,5 @@
 package com.example.bookapp.presentation.common
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +16,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,23 +27,22 @@ import androidx.paging.compose.items
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookapp.R
-import com.example.bookapp.domain.model.Book
 import com.example.bookapp.domain.model.Jetpack
 import com.example.bookapp.navigation.Screen
-import com.example.bookapp.presentation.components.RatingWidget
 import com.example.bookapp.presentation.components.ShimmerEffect
-import com.example.bookapp.ui.theme.*
-import com.example.bookapp.util.Constants.BASE_URL
+import com.example.bookapp.ui.theme.BOOK_ITEM_HEIGHT
+import com.example.bookapp.ui.theme.LARGE_PADDING
+import com.example.bookapp.ui.theme.MEDIUM_PADDING
+import com.example.bookapp.ui.theme.SMALL_PADDING
+import com.example.bookapp.util.Constants
 
 @Composable
-fun ListJetpack(
+fun JetpackList(
     jetpacks: LazyPagingItems<Jetpack>,
-    navHostController: NavHostController,
+    navHostController: NavHostController
 ) {
-    val result = handlePagingResultJetpack(jetpacks = jetpacks)
 
-    Log.d("ListContent", jetpacks.loadState.toString())
-
+    val result = handlePagingJetpackResult(jetpacks = jetpacks)
 
     if (result) {
         LazyColumn(
@@ -55,23 +51,23 @@ fun ListJetpack(
         ) {
             items(
                 items = jetpacks,
-                key = { book ->
-                    book.id
+                key = { key ->
+                    key.id
                 }
-            ) { book ->
-                book?.let {
+            ) { jetpacks ->
+                jetpacks?.let {
                     JetpackItem(jetpack = it, navHostController = navHostController)
                 }
+
             }
         }
     }
-
 
 }
 
 
 @Composable
-fun handlePagingResultJetpack(
+fun handlePagingJetpackResult(
     jetpacks: LazyPagingItems<Jetpack>
 ): Boolean {
     jetpacks.apply {
@@ -100,7 +96,6 @@ fun handlePagingResultJetpack(
     }
 }
 
-
 @Composable
 fun JetpackItem(
     jetpack: Jetpack,
@@ -110,7 +105,7 @@ fun JetpackItem(
         modifier = Modifier
             .height(BOOK_ITEM_HEIGHT)
             .clickable {
-                navHostController.navigate(Screen.DetailsJet.passJetId(jetId = jetpack.id))
+                navHostController.navigate(Screen.DetailsJetpack.passJetId(jetId = jetpack.id))
             },
         contentAlignment = Alignment.BottomStart
     ) {
@@ -118,10 +113,10 @@ fun JetpackItem(
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(data = "$BASE_URL${jetpack.image}")
+                    .data(data = "${Constants.BASE_URL}${jetpack.image}")
                     .placeholder(drawableResId = R.drawable.placeholder)
                     .error(drawableResId = R.drawable.placeholder)
-                    .build(), contentDescription = stringResource(R.string.contentdescJet),
+                    .build(), contentDescription = "",
                 contentScale = ContentScale.Crop
             )
         }
@@ -180,26 +175,9 @@ fun JetpackItem(
 
 @Preview
 @Composable
-fun prevJ() {
-    BookItem(
-        book = Book(
-            id = 1,
-            name = "flows",
-            image = "",
-            about = "dario and diego traveling to japan in this february 2023 :D yeyyy we are gonna do it yeeeeyy",
-            rating = 5.0,
-            level = "february",
-            timeToLearn = "monday",
-            tags = listOf()
-        ), navHostController = rememberNavController()
-    )
-}
-
-@Preview(uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun prevJ2() {
-    BookItem(
-        book = Book(
+fun PrevJetpackList() {
+    JetpackItem(
+        jetpack = Jetpack(
             id = 1,
             name = "flows",
             image = "",

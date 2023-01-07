@@ -9,5 +9,5 @@ import javax.inject.Inject
 class JetpackViewModel @Inject constructor(
     useCases: UseCases
 ) : ViewModel() {
-        val getAllJetpacks = useCases.getAllJetpacksUseCase()
+    val getAllJetpacks = useCases.getAllJetpacksUseCase()
 }

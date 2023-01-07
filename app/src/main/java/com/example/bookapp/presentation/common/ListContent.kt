@@ -31,6 +31,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookapp.R
 import com.example.bookapp.domain.model.Book
+import com.example.bookapp.domain.model.Jetpack
 import com.example.bookapp.navigation.Screen
 import com.example.bookapp.presentation.components.RatingWidget
 import com.example.bookapp.presentation.components.ShimmerEffect
@@ -71,7 +72,7 @@ fun ListContent(
 
 @Composable
 fun handlePagingResult(
-    books: LazyPagingItems<Book>
+    books: LazyPagingItems<Book>,
 ): Boolean {
     books.apply {
         val error = when {

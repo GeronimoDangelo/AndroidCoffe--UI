@@ -16,7 +16,9 @@ import com.example.bookapp.presentation.screens.search.SearchScreen
 import com.example.bookapp.presentation.screens.splash.SplashScreen
 import com.example.bookapp.presentation.screens.welcome.WelcomeScreen
 import com.example.bookapp.util.Constants.DETAILS_ARGUMENT_KEY
+import com.example.bookapp.util.Constants.DETAILS_JETPACK_KEY
 import com.google.accompanist.pager.ExperimentalPagerApi
+
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
@@ -26,6 +28,8 @@ fun SetupNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = Screen.Splash.route
     ) {
+
+        //Kotlin
         composable(route = Screen.Splash.route) {
             SplashScreen(navController = navController)
         }
@@ -33,8 +37,8 @@ fun SetupNavGraph(navController: NavHostController) {
             WelcomeScreen(navController = navController)
         }
 
-        composable(route= Screen.Category.route){
-                CategoryScreen(navHostController = navController)
+        composable(route = Screen.Category.route) {
+            CategoryScreen(navHostController = navController)
         }
 
         composable(route = Screen.Home.route) {
@@ -48,13 +52,26 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
             DetailsScreen(navHostController = navController)
         }
-        
-        composable(route = Screen.Jetpack.route){
-            JetpackScreen(navHostController = navController)
-        }
-        
         composable(route = Screen.Search.route) {
             SearchScreen(navHostController = navController)
         }
+
+
+        //SCREEN JETPACK
+
+
+        composable(route = Screen.Jetpack.route) {
+            JetpackScreen(navHostController = navController)
+        }
+
+        composable(
+            route = Screen.DetailsJetpack.route,
+            arguments = listOf(navArgument(DETAILS_JETPACK_KEY) {
+                type = NavType.IntType
+            })
+        ) {
+        }
+
+
     }
 }
