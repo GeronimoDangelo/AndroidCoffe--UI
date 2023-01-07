@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.example.bookapp.presentation.screens.category.CategoryScreen
 import com.example.bookapp.presentation.screens.details.DetailsScreen
 import com.example.bookapp.presentation.screens.home.HomeScreen
+import com.example.bookapp.presentation.screens.jetpack.JetpackScreen
 import com.example.bookapp.presentation.screens.search.SearchScreen
 import com.example.bookapp.presentation.screens.splash.SplashScreen
 import com.example.bookapp.presentation.screens.welcome.WelcomeScreen
@@ -47,6 +48,11 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
             DetailsScreen(navHostController = navController)
         }
+        
+        composable(route = Screen.Jetpack.route){
+            JetpackScreen(navHostController = navController)
+        }
+        
         composable(route = Screen.Search.route) {
             SearchScreen(navHostController = navController)
         }

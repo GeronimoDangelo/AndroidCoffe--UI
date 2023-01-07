@@ -17,4 +17,5 @@
     <string name="tags_placeholder_detail">More about</string>
     <string name="close_icon">close icon</string>
     <string name="category">Categories</string>
+    <string name="contentdescJet">jetpack image</string>
 </resources>

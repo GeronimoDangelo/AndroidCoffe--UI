@@ -1,25 +1,24 @@
 package com.example.bookapp.data.paging_source
 
-import androidx.paging.LoadState
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.bookapp.data.remote.BookApi
 import com.example.bookapp.domain.model.Book
-import javax.inject.Inject
+import com.example.bookapp.domain.model.Jetpack
 
-class SearchBooksSource(
+class SearchJetpackSource(
     private val bookApi: BookApi,
     private val query: String
-) : PagingSource<Int, Book>() {
+) : PagingSource<Int, Jetpack>() {
 
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Book> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Jetpack> {
         return try {
-            val apiResponse = bookApi.searchBooks(name = query)
-            val books = apiResponse.books
-            if (books.isNotEmpty()) {
+            val apiResponse = bookApi.searchJetpack(name = query)
+            val jets = apiResponse.jetpacks
+            if (jets.isNotEmpty()) {
                 LoadResult.Page(
-                    data = books,
+                    data = jets,
                     prevKey = apiResponse.prevPage,
                     nextKey = apiResponse.nextPage
                 )
@@ -38,7 +37,7 @@ class SearchBooksSource(
     //
     //
 
-    override fun getRefreshKey(state: PagingState<Int, Book>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Jetpack>): Int? {
         return state.anchorPosition
     }
 }

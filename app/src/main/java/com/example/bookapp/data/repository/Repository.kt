@@ -2,6 +2,7 @@ package com.example.bookapp.data.repository
 
 import androidx.paging.PagingData
 import com.example.bookapp.domain.model.Book
+import com.example.bookapp.domain.model.Jetpack
 import com.example.bookapp.domain.repository.DataStoreOperations
 import com.example.bookapp.domain.repository.LocalDataSource
 import com.example.bookapp.domain.repository.RemoteDataSource
@@ -22,7 +23,7 @@ class Repository @Inject constructor(
         return remote.searchBooks(query = query)
     }
 
-    suspend fun getSelectedBook(bookId: Int) : Book {
+    suspend fun getSelectedBook(bookId: Int): Book {
         return local.getSelectedBook(bookId = bookId)
     }
 
@@ -33,5 +34,18 @@ class Repository @Inject constructor(
     fun readOnBoardingState(): Flow<Boolean> {
         return dataStore.readOnBoardingState()
     }
+
+    fun getAllJetpacks(): Flow<PagingData<Jetpack>> {
+        return remote.getAllJetpacks()
+    }
+
+    fun searchJetpack(query: String): Flow<PagingData<Jetpack>> {
+        return remote.searchJetpack(query = query)
+    }
+
+    suspend fun getSelectedJetpack(jetId: Int): Jetpack {
+        return local.getSelectedJetpack(jetId = jetId)
+    }
+
 
 }

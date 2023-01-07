@@ -16,4 +16,14 @@ interface BookApi {
         @Query("name") name: String
     ): ApiResponse
 
+    @GET("/book/jetpacks")
+    suspend fun getAllJetpacks(
+        @Query("page") page: Int = 1
+    ) : ApiResponse
+
+    @GET("/book/jetpacks/search")
+    suspend fun searchJetpack(
+        @Query("name") name: String
+    ): ApiResponse
+
 }
