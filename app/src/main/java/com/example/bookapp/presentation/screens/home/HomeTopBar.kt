@@ -2,6 +2,7 @@ package com.example.bookapp.presentation.screens.home
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -11,10 +12,17 @@ import com.example.bookapp.ui.theme.topBarBg
 import com.example.bookapp.ui.theme.topBarTxt
 
 @Composable
-fun HomeTopBar(onSearchClicked: () -> Unit) {
+fun HomeTopBar(onSearchClicked: () -> Unit, onBackClicked: () -> Unit) {
 
     TopAppBar(
         title = {
+            IconButton(onClick = onBackClicked ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = stringResource(R.string.search_icon),
+                    tint = MaterialTheme.colors.topBarTxt
+                )
+            }
             Text(
                 text = "Explore",
                 color = MaterialTheme.colors.topBarTxt
@@ -25,7 +33,7 @@ fun HomeTopBar(onSearchClicked: () -> Unit) {
             IconButton(onClick = onSearchClicked) {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = stringResource(R.string.search_icon),
+                    contentDescription = "",
                     tint = MaterialTheme.colors.topBarTxt
                 )
             }
@@ -37,5 +45,5 @@ fun HomeTopBar(onSearchClicked: () -> Unit) {
 @Preview
 @Composable
 fun Prev() {
-    HomeTopBar { }
+    HomeTopBar(onBackClicked = {}, onSearchClicked = {})
 }

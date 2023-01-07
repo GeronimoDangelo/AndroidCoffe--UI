@@ -16,5 +16,6 @@
     <string name="about_detail">Explanation</string>
     <string name="tags_placeholder_detail">More about</string>
     <string name="close_icon">close icon</string>
+    <string name="category">Categories</string>
 
 </resources>

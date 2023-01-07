@@ -8,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.bookapp.presentation.screens.category.CategoryScreen
 import com.example.bookapp.presentation.screens.details.DetailsScreen
 import com.example.bookapp.presentation.screens.home.HomeScreen
 import com.example.bookapp.presentation.screens.search.SearchScreen
@@ -30,6 +31,11 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Screen.Welcome.route) {
             WelcomeScreen(navController = navController)
         }
+
+        composable(route= Screen.Category.route){
+                CategoryScreen(navHostController = navController)
+        }
+
         composable(route = Screen.Home.route) {
             HomeScreen(navHostController = navController)
         }
