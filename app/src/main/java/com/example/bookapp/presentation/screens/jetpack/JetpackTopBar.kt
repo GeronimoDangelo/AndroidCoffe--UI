@@ -12,11 +12,11 @@ import com.example.bookapp.ui.theme.topBarBg
 import com.example.bookapp.ui.theme.topBarTxt
 
 @Composable
-fun JetpackTopBar(onSearchClicked: () -> Unit, onBackClicked: () -> Unit) {
-
+fun JetpackTopBar(onSearchClicked: () -> Unit, onBackClick: () -> Unit) {
+    
     TopAppBar(
         title = {
-            IconButton(onClick = onBackClicked ) {
+            IconButton(onClick = onBackClick ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = stringResource(R.string.search_icon),
@@ -30,20 +30,18 @@ fun JetpackTopBar(onSearchClicked: () -> Unit, onBackClicked: () -> Unit) {
         },
         backgroundColor = MaterialTheme.colors.topBarBg,
         actions = {
-            IconButton(onClick = onSearchClicked) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "",
-                    tint = MaterialTheme.colors.topBarTxt
-                )
+            IconButton(onClick = onSearchClicked ) {
+                Icon(imageVector = Icons.Default.Search , contentDescription = "" )
             }
         }
     )
-
 }
+
 
 @Preview
 @Composable
-fun Prev() {
-    JetpackTopBar(onBackClicked = {}, onSearchClicked = {})
+fun PrevCofie() {
+    JetpackTopBar(onSearchClicked = { /*TODO*/ }) {
+        
+    }
 }

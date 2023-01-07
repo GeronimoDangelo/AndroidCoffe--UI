@@ -1,4 +1,4 @@
-package com.example.bookapp.presentation.jetpackdetails
+package com.example.bookapp.presentation.screens.detailsjetpack
 
 import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
@@ -22,92 +22,89 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.bookapp.domain.model.Book
-import com.example.bookapp.ui.theme.*
 import com.example.bookapp.R
 import com.example.bookapp.domain.model.Jetpack
 import com.example.bookapp.presentation.components.InfoBox
 import com.example.bookapp.presentation.components.OrderedList
-import com.example.bookapp.util.Constants.ABOUT_MAX_LINES_DETAILSCREEN
-import com.example.bookapp.util.Constants.BASE_URL
-import com.example.bookapp.util.Constants.MINIMUNM_BACKGROUND_IMAGE_HEIGHT
+import com.example.bookapp.ui.theme.*
+import com.example.bookapp.util.Constants
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-
 
 @ExperimentalMaterialApi
 @Composable
 fun JetpackDetailsContent(
-    navHostController: NavHostController, selectedJetpack: Jetpack?, colors: Map<String, String>
+    navHostController: NavHostController,
+    selectedJetpack: Jetpack?,
+    colorsJetpack: Map<String, String>
+
 ) {
-    var vibrant by remember { mutableStateOf("#000000") }
-    var darkVibrant by remember { mutableStateOf("#000000") }
-    var onDarkVibrant by remember { mutableStateOf("#ffffff") }
+    var vibrants by remember { mutableStateOf("#000000") }
+    var darkVibrants by remember { mutableStateOf("#000000") }
+    var onDarkVibrants by remember { mutableStateOf("#ffffff") }
 
     LaunchedEffect(key1 = selectedJetpack) {
-        vibrant = colors["vibrant"]!!
-        darkVibrant = colors["darkVibrant"]!!
-        onDarkVibrant = colors["onDarkVibrant"]!!
-
+        vibrants = colorsJetpack["vibrant"]!!
+        darkVibrants = colorsJetpack["darkVibrant"]!!
+        onDarkVibrants = colorsJetpack["onDarkVibrant"]!!
     }
-    val systemUiController = rememberSystemUiController()
+
+    val systemUiControllerJetpack = rememberSystemUiController()
 
     SideEffect {
-        systemUiController.setStatusBarColor(color = Color(parseColor(darkVibrant)))
+        systemUiControllerJetpack.setStatusBarColor(color = Color(parseColor(darkVibrants)))
     }
 
-
-    val scaffoldState = rememberBottomSheetScaffoldState(
+    val scaffoldStates = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     )
 
+    val currentSheetFract = scaffoldStates.currentSheetFract
 
-    val currentSheetFraction = scaffoldState.currentSheetFraction
-
-
-    val radiusAnim by animateDpAsState(
-        targetValue =
-        if (currentSheetFraction == 1f) 22.dp else 20.dp
-    )
+    val radiusAnims by animateDpAsState(targetValue = if (currentSheetFract == 1f) 22.dp else 18.dp)
 
 
     BottomSheetScaffold(
-        sheetShape = RoundedCornerShape(topStart = radiusAnim, topEnd = radiusAnim),
-        scaffoldState = scaffoldState,
+        sheetShape = RoundedCornerShape(topStart = radiusAnims, topEnd = radiusAnims),
+        scaffoldState = scaffoldStates,
         sheetPeekHeight = MIN_SHEET_HEIGHT,
         sheetContent = {
             selectedJetpack?.let {
-                BottomSheetContent(
+                BottomSheetDesc(
                     selectedJetpack = it,
-                    infoBoxIconColor = Color(parseColor(vibrant)),
-                    sheetBackgroundColor = Color(parseColor(darkVibrant)),
-                    contentColor = Color(parseColor(onDarkVibrant))
+                    infoBoxIconColors = Color(parseColor(vibrants)),
+                    sheetBackgroundColors = Color(parseColor(darkVibrants)),
+                    contentColors = Color(parseColor(onDarkVibrants))
                 )
             }
         },
         content = {
-            selectedJetpack?.let { book ->
-                BackgroundContent(bookImg = book.image,
-                    imageFraction = currentSheetFraction,
-                    backgroundColor = Color(parseColor(darkVibrant)),
-                    onCloseClicked = {
+            selectedJetpack?.let { jets ->
+                BackgroundContents(
+                    jetpackImg = jets.image,
+                    imgFraction = currentSheetFract,
+                    backgroundColors = Color(parseColor(darkVibrants)),
+                    onCloseClick = {
                         navHostController.popBackStack()
-                    })
+                    }
+                )
             }
-        })
+        }
+    )
 
 
 }
 
+
 @Composable
-fun BottomSheetContent(
+fun BottomSheetDesc(
     selectedJetpack: Jetpack,
-    infoBoxIconColor: Color = MaterialTheme.colors.buttonBackgroundColor,
-    sheetBackgroundColor: Color = MaterialTheme.colors.welcomeScreenBackgroundColor,
-    contentColor: Color = MaterialTheme.colors.titleColor
+    infoBoxIconColors: Color = MaterialTheme.colors.buttonBackgroundColor,
+    sheetBackgroundColors: Color = MaterialTheme.colors.welcomeScreenBackgroundColor,
+    contentColors: Color = MaterialTheme.colors.titleColor
 ) {
     Column(
         modifier = Modifier
-            .background(sheetBackgroundColor)
+            .background(sheetBackgroundColors)
             .padding(all = LARGE_PADDING)
     ) {
         Row(
@@ -124,12 +121,12 @@ fun BottomSheetContent(
                 contentDescription = stringResource(
                     R.string.logo_icon_detailss
                 ),
-                tint = contentColor
+                tint = contentColors
             )
             Text(
                 modifier = Modifier.padding(start = 15.dp),
                 text = selectedJetpack.name,
-                color = contentColor,
+                color = contentColors,
                 fontSize = MaterialTheme.typography.h4.fontSize,
                 fontWeight = FontWeight.Bold
             )
@@ -142,17 +139,17 @@ fun BottomSheetContent(
         ) {
             InfoBox(
                 icon = painterResource(id = R.drawable.level),
-                iconColor = infoBoxIconColor,
+                iconColor = infoBoxIconColors,
                 bigText = selectedJetpack.level,
                 smallText = stringResource(R.string.month_details_placeholder),
-                textColor = contentColor
+                textColor = contentColors
             )
             InfoBox(
                 icon = painterResource(id = R.drawable.time),
-                iconColor = infoBoxIconColor,
+                iconColor = infoBoxIconColors,
                 bigText = selectedJetpack.timeToLearn,
                 smallText = stringResource(R.string.day_placeholder_details),
-                textColor = contentColor
+                textColor = contentColors
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -161,7 +158,7 @@ fun BottomSheetContent(
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
             text = stringResource(R.string.about_detail),
-            color = contentColor,
+            color = contentColors,
             fontSize = MaterialTheme.typography.subtitle1.fontSize,
             fontWeight = FontWeight.Bold
         )
@@ -170,9 +167,9 @@ fun BottomSheetContent(
                 .alpha(ContentAlpha.medium)
                 .padding(bottom = MEDIUM_PADDING),
             text = selectedJetpack.about,
-            color = contentColor,
+            color = contentColors,
             fontSize = MaterialTheme.typography.body1.fontSize,
-            maxLines = ABOUT_MAX_LINES_DETAILSCREEN
+            maxLines = Constants.ABOUT_MAX_LINES_DETAILSCREEN
         )
         Spacer(modifier = Modifier.height(15.dp))
         Column(
@@ -181,7 +178,7 @@ fun BottomSheetContent(
             OrderedList(
                 title = stringResource(R.string.tags_placeholder_detail),
                 items = selectedJetpack.tags,
-                textColor = contentColor
+                textColor = contentColors
             )
         }
 
@@ -190,25 +187,25 @@ fun BottomSheetContent(
 
 
 @Composable
-fun BackgroundContent(
-    bookImg: String,
-    imageFraction: Float = 1f,
-    backgroundColor: Color = MaterialTheme.colors.welcomeScreenBackgroundColor,
-    onCloseClicked: () -> Unit
+fun BackgroundContents(
+    jetpackImg: String,
+    imgFraction: Float = 1f,
+    backgroundColors: Color = MaterialTheme.colors.welcomeScreenBackgroundColor,
+    onCloseClick: () -> Unit
 ) {
 
-    val imageUrl = "$BASE_URL${bookImg}"
+    val imageUrl = "${Constants.BASE_URL}${jetpackImg}"
 
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor)
+            .background(backgroundColors)
     ) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = imageFraction + MINIMUNM_BACKGROUND_IMAGE_HEIGHT)
+                .fillMaxHeight(fraction = imgFraction + Constants.MINIMUNM_BACKGROUND_IMAGE_HEIGHT)
                 .align(Alignment.TopStart),
             model = ImageRequest.Builder(LocalContext.current).data(data = imageUrl)
                 .error(drawableResId = R.drawable.placeholder).build(),
@@ -219,7 +216,7 @@ fun BackgroundContent(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
         ) {
             IconButton(modifier = Modifier.padding(all = SMALL_PADDING),
-                onClick = { onCloseClicked() }) {
+                onClick = { onCloseClick() }) {
                 Icon(
                     modifier = Modifier.size(ICONS_INFOBOX_SIZE),
                     imageVector = Icons.Default.Close,
@@ -229,11 +226,12 @@ fun BackgroundContent(
             }
         }
     }
+
 }
 
 
 @ExperimentalMaterialApi
-val BottomSheetScaffoldState.currentSheetFraction: Float
+val BottomSheetScaffoldState.currentSheetFract: Float
     get() {
         val fraction = bottomSheetState.progress.fraction
         val targetValue = bottomSheetState.targetValue
@@ -247,5 +245,3 @@ val BottomSheetScaffoldState.currentSheetFraction: Float
             else -> fraction
         }
     }
-
-
