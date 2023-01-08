@@ -19,10 +19,20 @@ interface BookApi {
     @GET("/book/jetpacks")
     suspend fun getAllJetpacks(
         @Query("page") page: Int = 1
-    ) : ApiResponse
+    ): ApiResponse
 
     @GET("/book/jetpacks/search")
     suspend fun searchJetpack(
+        @Query("name") name: String
+    ): ApiResponse
+
+    @GET("/book/xml")
+    suspend fun getAllXmls(
+        @Query("page") page: Int = 1
+    ): ApiResponse
+
+    @GET("/book/xml/search")
+    suspend fun searchXml(
         @Query("name") name: String
     ): ApiResponse
 

@@ -21,6 +21,17 @@ sealed class Screen(val route: String) {
         }
     }
     object JetpackSearch : Screen("jetpack_search")
+
+    // XML
+    object XmlScreen : Screen("xml_screen")
+    object XmlDetails : Screen("xmldetails_screen/{xmlId}") {
+        fun passXmlId(xmlId: Int): String {
+            return "xmldetails_screen/$xmlId"
+        }
+    }
+    object XmlSearch : Screen("jetpack_search")
+
+
 }
 
 

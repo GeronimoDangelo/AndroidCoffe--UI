@@ -17,6 +17,7 @@ import com.example.bookapp.presentation.screens.jetpacksearch.JetpackSearchScree
 import com.example.bookapp.presentation.screens.search.SearchScreen
 import com.example.bookapp.presentation.screens.splash.SplashScreen
 import com.example.bookapp.presentation.screens.welcome.WelcomeScreen
+import com.example.bookapp.presentation.screens.xml.XmlScreen
 import com.example.bookapp.util.Constants.DETAILS_ARGUMENT_KEY
 import com.example.bookapp.util.Constants.DETAILS_JETPACK_KEY
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -57,8 +58,10 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Screen.Search.route) {
             SearchScreen(navHostController = navController)
         }
-
-
+        //
+        //
+        //
+        //
         //SCREEN JETPACK
         composable(route = Screen.Jetpack.route) {
             JetpackScreen(navHostController = navController)
@@ -72,10 +75,32 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
             JetpackDetailsScreen(navHostController = navController)
         }
-        composable(route = Screen.JetpackSearch.route){
+        composable(route = Screen.JetpackSearch.route) {
             JetpackSearchScreen(navHostController = navController)
         }
 
+
+        //
+        //
+        //
+        //
+        //XML
+        composable(route = Screen.XmlScreen.route) {
+            XmlScreen(navHostController = navController)
+        }
+        //xml details screen
+        composable(
+            route = Screen.XmlDetails.route,
+            arguments = listOf(navArgument("xmlId") {
+                type = NavType.IntType
+            })
+        ) {
+
+        }
+
+        composable(route = Screen.XmlSearch.route) {
+
+        }
 
 
     }

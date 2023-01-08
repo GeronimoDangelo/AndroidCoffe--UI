@@ -24,6 +24,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.bookapp.R
 import com.example.bookapp.domain.model.Book
 import com.example.bookapp.domain.model.Jetpack
+import com.example.bookapp.domain.model.XmlModel
 import com.example.bookapp.ui.theme.*
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -34,7 +35,8 @@ import java.net.SocketTimeoutException
 fun EmptyScreen(
     error: LoadState.Error? = null,
     books: LazyPagingItems<Book>? = null,
-    jetpacks: LazyPagingItems<Jetpack>? = null
+    jetpacks: LazyPagingItems<Jetpack>? = null,
+    xmls: LazyPagingItems<XmlModel>?=null
 ) {
 
     var message by remember {

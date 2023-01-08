@@ -10,8 +10,10 @@ object Constants {
     const val BOOK_DATABASE = "book_database"
     const val BOOK_DATABASE_TABLE = "book_table"
     const val JETPACK_DATABASE_TABLE = "jetpack_table"
+    const val XML_DATABASE_TABLE = "xml_table"
     const val BOOK_REMOTE_KEYS_DATABASE_TABLE = "book_remote_keys_table"
     const val JETPACK_REMOTE_KEYS_DATABASE_TABLE = "jetpack_remote_keys_table"
+    const val XML_REMOTE_KEYS_DATABASE_TABLE = "xml_remote_keys_table"
 
     const val PREFERENCES_NAME = "book_preferences"
     const val PREFERENCES_KEY = "on_boarding_completed"
