@@ -1,5 +1,6 @@
 package com.example.bookapp.presentation.common
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,8 +18,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
@@ -33,6 +36,7 @@ import com.example.bookapp.ui.theme.LARGE_PADDING
 import com.example.bookapp.ui.theme.MEDIUM_PADDING
 import com.example.bookapp.ui.theme.SMALL_PADDING
 import com.example.bookapp.util.Constants
+import com.example.bookapp.util.Constants.BASE_URL
 
 @Composable
 fun XmlList(
@@ -41,6 +45,8 @@ fun XmlList(
 ) {
 
     val result = handlePagingXmlResult(xmls = xmls)
+    Log.d("Xml", xmls.loadState.toString())
+
 
     if (result) {
         LazyColumn(
@@ -100,7 +106,7 @@ fun XmlItem(
         modifier = Modifier
             .height(BOOK_ITEM_HEIGHT)
             .clickable {
-                navHostController.navigate(Screen.XmlDetails.passXmlId(xmlId = xmls.id))
+                navHostController.navigate(Screen.DetailsXml.passXmlId(xmlId = xmls.id))
             },
         contentAlignment = Alignment.BottomStart
     ) {
@@ -108,10 +114,10 @@ fun XmlItem(
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(data = "${Constants.BASE_URL}${xmls.image}")
+                    .data(data = "${BASE_URL}${xmls.image}")
                     .placeholder(drawableResId = R.drawable.placeholder)
                     .error(drawableResId = R.drawable.placeholder)
-                    .build(), contentDescription = stringResource(R.string.book_image),
+                    .build(), contentDescription ="",
                 contentScale = ContentScale.Crop
             )
         }
@@ -152,4 +158,21 @@ fun XmlItem(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PrevXmlList() {
+    XmlItem(
+        xmls = XmlModel(
+            id = 1,
+            name = "flows",
+            image = "",
+            about = "dario and diego traveling to japan in this february 2023 :D yeyyy we are gonna do it yeeeeyy",
+            rating = 5.0,
+            level = "february",
+            timeToLearn = "monday",
+            tags = listOf()
+        ), navHostController = rememberNavController()
+    )
 }

@@ -32,5 +32,4 @@ fun XmlScreen(navHostController: NavHostController, xmlViewModel: XmlViewModel =
         content = {
             XmlList(xmls = xmls, navHostController = navHostController)
         })
-
 }

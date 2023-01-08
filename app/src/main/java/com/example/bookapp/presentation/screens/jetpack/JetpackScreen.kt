@@ -24,7 +24,8 @@ fun JetpackScreen(navHostController: NavHostController, jetpackViewModel: Jetpac
         systemUiController.setStatusBarColor(color = topBarColor)
     }
 
-    Scaffold(topBar = {
+    Scaffold(
+        topBar = {
         JetpackTopBar(
             onSearchClicked = { navHostController.navigate(Screen.JetpackSearch.route) },
             onBackClick = { navHostController.popBackStack() }
@@ -33,6 +34,4 @@ fun JetpackScreen(navHostController: NavHostController, jetpackViewModel: Jetpac
     }, content = {
             JetpackList(jetpacks = jetpacks , navHostController = navHostController )
     })
-
-
 }

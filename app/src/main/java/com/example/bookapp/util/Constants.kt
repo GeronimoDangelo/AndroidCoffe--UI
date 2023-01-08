@@ -6,6 +6,7 @@ object Constants {
 
     const val DETAILS_ARGUMENT_KEY = "bookId"
     const val DETAILS_JETPACK_KEY = "jetId"
+    const val DETAILS_XML_KEY = "xmlId"
 
     const val BOOK_DATABASE = "book_database"
     const val BOOK_DATABASE_TABLE = "book_table"
