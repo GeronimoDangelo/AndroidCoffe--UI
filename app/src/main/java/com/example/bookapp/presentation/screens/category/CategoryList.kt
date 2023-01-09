@@ -85,7 +85,7 @@ fun CategoryList(navHostController: NavHostController) {
                 modifier = Modifier
                     .height(400.dp)
                     .clickable {
-                        navHostController.navigate(Screen.Splash.route)
+                        navHostController.navigate(Screen.XmlScreen.route)
                     },
                 contentAlignment = Alignment.BottomStart,
             ) {

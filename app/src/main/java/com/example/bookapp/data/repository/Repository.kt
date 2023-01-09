@@ -3,6 +3,7 @@ package com.example.bookapp.data.repository
 import androidx.paging.PagingData
 import com.example.bookapp.domain.model.Book
 import com.example.bookapp.domain.model.Jetpack
+import com.example.bookapp.domain.model.XmlModel
 import com.example.bookapp.domain.repository.DataStoreOperations
 import com.example.bookapp.domain.repository.LocalDataSource
 import com.example.bookapp.domain.repository.RemoteDataSource
@@ -45,6 +46,20 @@ class Repository @Inject constructor(
 
     suspend fun getSelectedJetpack(jetId: Int): Jetpack {
         return local.getSelectedJetpack(jetId = jetId)
+    }
+
+    fun getAllXmls(): Flow<PagingData<XmlModel>> {
+        return remote.getAllXmls()
+    }
+
+
+    fun searchXml(query: String): Flow<PagingData<XmlModel>> {
+        return remote.searchXmls(query = query)
+    }
+
+
+    suspend fun getSelectedXml(xmlId: Int): XmlModel {
+        return local.getSelectedXml(xmlId = xmlId)
     }
 
 

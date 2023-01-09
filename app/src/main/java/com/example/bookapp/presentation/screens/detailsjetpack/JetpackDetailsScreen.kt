@@ -26,6 +26,7 @@ fun JetpackDetailsScreen(
     val colorsPalette by jetpackDetailsViewModel.colorsPalette
 
     if (colorsPalette.isNotEmpty()) {
+
         JetpackDetailsContent(
             navHostController = navHostController,
             selectedJetpack = selectedJetpack,

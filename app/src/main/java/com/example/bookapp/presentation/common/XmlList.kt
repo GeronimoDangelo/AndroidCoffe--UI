@@ -1,6 +1,5 @@
 package com.example.bookapp.presentation.common
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,7 +17,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,22 +28,24 @@ import androidx.paging.compose.items
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookapp.R
-import com.example.bookapp.domain.model.Book
-import com.example.bookapp.domain.model.Jetpack
+import com.example.bookapp.domain.model.XmlModel
 import com.example.bookapp.navigation.Screen
-import com.example.bookapp.presentation.components.RatingWidget
 import com.example.bookapp.presentation.components.ShimmerEffect
-import com.example.bookapp.ui.theme.*
+import com.example.bookapp.ui.theme.BOOK_ITEM_HEIGHT
+import com.example.bookapp.ui.theme.LARGE_PADDING
+import com.example.bookapp.ui.theme.MEDIUM_PADDING
+import com.example.bookapp.ui.theme.SMALL_PADDING
+import com.example.bookapp.util.Constants
 import com.example.bookapp.util.Constants.BASE_URL
 
 @Composable
-fun ListContent(
-    books: LazyPagingItems<Book>,
+fun XmlList(
+    xmls: LazyPagingItems<XmlModel>,
     navHostController: NavHostController
 ) {
-    val result = handlePagingResult(books = books)
 
-    Log.d("ListContent", books.loadState.toString())
+    val result = handlePagingXmlResult(xmls = xmls)
+    Log.d("Xml", xmls.loadState.toString())
 
 
     if (result) {
@@ -54,27 +54,23 @@ fun ListContent(
             verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
         ) {
             items(
-                items = books,
-                key = { book ->
-                    book.id
+                items = xmls,
+                key = { xml ->
+                    xml.id
                 }
-            ) { book ->
-                book?.let {
-                    BookItem(book = it, navHostController = navHostController)
+            ) { xmlItem ->
+                xmlItem?.let {
+                    XmlItem(xmls = it, navHostController = navHostController)
                 }
             }
         }
     }
 
-
 }
 
-
 @Composable
-fun handlePagingResult(
-    books: LazyPagingItems<Book>,
-): Boolean {
-    books.apply {
+fun handlePagingXmlResult(xmls: LazyPagingItems<XmlModel>): Boolean {
+    xmls.apply {
         val error = when {
             loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
             loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
@@ -88,10 +84,10 @@ fun handlePagingResult(
                 false
             }
             error != null -> {
-                EmptyScreen(error = error, books = books)
+                EmptyScreen(error = error, xmls = xmls)
                 false
             }
-            books.itemCount < 1 -> {
+            xmls.itemCount < 1 -> {
                 EmptyScreen()
                 false
             }
@@ -102,15 +98,15 @@ fun handlePagingResult(
 
 
 @Composable
-fun BookItem(
-    book: Book,
+fun XmlItem(
+    xmls: XmlModel,
     navHostController: NavHostController
 ) {
     Box(
         modifier = Modifier
             .height(BOOK_ITEM_HEIGHT)
             .clickable {
-                navHostController.navigate(Screen.Details.passBookId(bookId = book.id))
+                navHostController.navigate(Screen.DetailsXml.passXmlId(xmlId = xmls.id))
             },
         contentAlignment = Alignment.BottomStart
     ) {
@@ -118,10 +114,10 @@ fun BookItem(
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(data = "$BASE_URL${book.image}")
+                    .data(data = "${BASE_URL}${xmls.image}")
                     .placeholder(drawableResId = R.drawable.placeholder)
                     .error(drawableResId = R.drawable.placeholder)
-                    .build(), contentDescription = stringResource(R.string.book_image),
+                    .build(), contentDescription ="",
                 contentScale = ContentScale.Crop
             )
         }
@@ -144,34 +140,21 @@ fun BookItem(
                     .padding(start = 16.dp, end = 16.dp, top = 10.dp)
             ) {
                 Text(
-                    text = book.name,
+                    text = xmls.name,
                     color = Color.White,
                     fontSize = MaterialTheme.typography.h5.fontSize,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(modifier = Modifier.padding(top = 3.dp),
-                    text = book.about,
+                Text(
+                    modifier = Modifier.padding(top = 3.dp),
+                    text = xmls.about,
                     color = Color.White.copy(0.4f),
                     fontSize = MaterialTheme.typography.subtitle2.fontSize,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
-                )/*
-                Row(
-                    modifier = Modifier.padding(top = SMALL_PADDING),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RatingWidget(
-                        modifier = Modifier.padding(end = SMALL_PADDING),
-                        rating = book.rating
-                    )
-                    Text(
-                        text = "(${book.rating})",
-                        textAlign = TextAlign.Center,
-                        color = Color.White.copy(0.5f)
-                    )
-                }*/
+                )
             }
         }
     }
@@ -179,26 +162,9 @@ fun BookItem(
 
 @Preview
 @Composable
-fun prev() {
-    BookItem(
-        book = Book(
-            id = 1,
-            name = "flows",
-            image = "",
-            about = "dario and diego traveling to japan in this february 2023 :D yeyyy we are gonna do it yeeeeyy",
-            rating = 5.0,
-            level = "february",
-            timeToLearn = "monday",
-            tags = listOf()
-        ), navHostController = rememberNavController()
-    )
-}
-
-@Preview(uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun prev2() {
-    BookItem(
-        book = Book(
+fun PrevXmlList() {
+    XmlItem(
+        xmls = XmlModel(
             id = 1,
             name = "flows",
             image = "",

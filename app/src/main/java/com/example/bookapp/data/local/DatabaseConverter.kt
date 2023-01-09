@@ -5,7 +5,7 @@ import java.lang.StringBuilder
 
 class DatabaseConverter {
 
-    private val separator = ","
+    private val separator = "*"
 
     @TypeConverter
     fun convertListToString(list: List<String>): String {

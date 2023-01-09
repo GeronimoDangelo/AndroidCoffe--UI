@@ -5,13 +5,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.bookapp.data.local.BookDatabase
-import com.example.bookapp.data.paging_source.BookRemoteMediator
-import com.example.bookapp.data.paging_source.JetpackRemoteMediator
-import com.example.bookapp.data.paging_source.SearchBooksSource
-import com.example.bookapp.data.paging_source.SearchJetpackSource
+import com.example.bookapp.data.paging_source.*
 import com.example.bookapp.data.remote.BookApi
 import com.example.bookapp.domain.model.Book
 import com.example.bookapp.domain.model.Jetpack
+import com.example.bookapp.domain.model.XmlModel
 import com.example.bookapp.domain.repository.RemoteDataSource
 import com.example.bookapp.util.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +22,7 @@ class RemoteDataSourceImpl(
 
     private val bookDao = bookDatabase.bookDao()
     private val jetpackDao = bookDatabase.jetpackDao()
+    private val xmlDao = bookDatabase.xmlDao()
 
     override fun getAllBooks(): Flow<PagingData<Book>> {
         val pagingSourceFactory = { bookDao.getAllBooks() }
@@ -63,6 +62,27 @@ class RemoteDataSourceImpl(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
                 SearchJetpackSource(bookApi = bookApi, query = query)
+            }
+        ).flow
+    }
+
+    override fun getAllXmls(): Flow<PagingData<XmlModel>> {
+        val pagingSourceFactory = { xmlDao.getAllXmls() }
+        return Pager(
+            config = PagingConfig(pageSize = ITEMS_PER_PAGE),
+            remoteMediator = XmlRemoteMediator(
+                bookApi = bookApi,
+                bookDatabase = bookDatabase
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
+
+    override fun searchXmls(query: String): Flow<PagingData<XmlModel>> {
+        return Pager(
+            config = PagingConfig(pageSize = ITEMS_PER_PAGE),
+            pagingSourceFactory = {
+                SearchXmlSource(bookApi = bookApi, query = query)
             }
         ).flow
     }

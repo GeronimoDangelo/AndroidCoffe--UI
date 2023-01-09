@@ -1,4 +1,4 @@
-package com.example.bookapp.presentation.screens.jetpack
+package com.example.bookapp.presentation.screens.xml
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -8,14 +8,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.bookapp.navigation.Screen
-import com.example.bookapp.presentation.common.JetpackList
+import com.example.bookapp.presentation.common.XmlList
 import com.example.bookapp.ui.theme.topBarBg
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun JetpackScreen(navHostController: NavHostController, jetpackViewModel: JetpackViewModel = hiltViewModel()) {
+fun XmlScreen(navHostController: NavHostController, xmlViewModel: XmlViewModel = hiltViewModel()) {
 
-    val jetpacks = jetpackViewModel.getAllJetpacks.collectAsLazyPagingItems()
+    val xmls = xmlViewModel.getAllXmls.collectAsLazyPagingItems()
 
     val systemUiController = rememberSystemUiController()
     val topBarColor = MaterialTheme.colors.topBarBg
@@ -26,12 +26,10 @@ fun JetpackScreen(navHostController: NavHostController, jetpackViewModel: Jetpac
 
     Scaffold(
         topBar = {
-        JetpackTopBar(
-            onSearchClicked = { navHostController.navigate(Screen.JetpackSearch.route) },
-            onBackClick = { navHostController.popBackStack() }
-        )
-
-    }, content = {
-            JetpackList(jetpacks = jetpacks , navHostController = navHostController )
-    })
+            XmlTopbar(onSearchClicked = { navHostController.navigate(Screen.XmlSearch.route) },
+                onBackClick = { navHostController.popBackStack() })
+        },
+        content = {
+            XmlList(xmls = xmls, navHostController = navHostController)
+        })
 }

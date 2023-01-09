@@ -30,7 +30,7 @@ val buttonOnBoardingDayText = Color(0xFFFBF9F7)
 val buttonOnBoardingNightText = Color(0xFF1D1D27)
 
 val homeTopBarTxtDay = Color(0xFF917A67)
-val homeTopBarTxtNight = Color(0xFF52698B)
+val homeTopBarTxtNight = Color(0xFFBFD9FF)
 
 val homeTopBarBGDay = Color(0xFFFBF9F7)
 val homeTopBarBGNight = Color(0xFF1D1D27)
