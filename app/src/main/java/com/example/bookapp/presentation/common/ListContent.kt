@@ -130,7 +130,7 @@ fun BookItem(
         //
         Surface(
             modifier = Modifier
-                .fillMaxHeight(0.4f)
+                .fillMaxHeight(0.35f)
                 .fillMaxWidth(),
             color = Color.Black.copy(ContentAlpha.medium),
             shape = RoundedCornerShape(
@@ -141,7 +141,7 @@ fun BookItem(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(all = MEDIUM_PADDING)
+                    .padding(start = 16.dp, end = 16.dp, top = 10.dp)
             ) {
                 Text(
                     text = book.name,
