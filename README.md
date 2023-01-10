@@ -68,10 +68,7 @@ backend server to *"render (web app)"* so anyone can use it.
 Here i'm posting 2 differents preview of the same app but the first one is the "Day Mode" and the second one is for "Night Mode"...
 
 
-- [Day mode | Video overview of the entiry app ](
-https://user-images.githubusercontent.com/108690292/211670636-dfffc1a5-c7c6-4038-951f-e995e202de76.mp4
-
-)
+- [Day mode | Video overview of the entiry app ](https://user-images.githubusercontent.com/108690292/211670636-dfffc1a5-c7c6-4038-951f-e995e202de76.mp4)
 
 
 - [Night mode | Video overview of the entiry app ](https://user-images.githubusercontent.com/108690292/211659272-d45fcf43-e5ff-4d5d-ad15-195ed8cee6fb.mp4)
