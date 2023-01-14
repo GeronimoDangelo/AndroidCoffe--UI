@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "259147712320",
+    "project_id": "android-coffee-814da",
+    "storage_bucket": "android-coffee-814da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259147712320:android:5674b6356d372f541d9ca5",
+        "android_client_info": {
+          "package_name": "com.example.bookapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259147712320-n8oc5mr048hqrgg63mfargklhetjef7d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKMzHGcVfjbo4vNe7DdVq5zMxYKl60mB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259147712320-n8oc5mr048hqrgg63mfargklhetjef7d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
