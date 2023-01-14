@@ -8,7 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.bookapp.navigation.SetupNavGraph
-import com.example.bookapp.ui.theme.BorutoAppTheme
+import com.example.bookapp.ui.theme.AndroidCoffeeAppTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BorutoAppTheme {
+            AndroidCoffeeAppTheme {
                 navController = rememberNavController()
                 SetupNavGraph(navController = navController)
             }
