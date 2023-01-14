@@ -24,7 +24,7 @@ sealed class OnBoardingPage(
 
     object Third : OnBoardingPage(
         image = R.drawable.third,
-        title = "Take it slowly",
-        description = "If the information does not upload at first time , try to return to the categories section and then navigate again into the category you want!"
+        title = "Ranking & level",
+        description = "Each category has its own ranking and time to learning! Make sure to be patience!"
     )
 }
