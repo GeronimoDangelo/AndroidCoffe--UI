@@ -33,9 +33,7 @@ with **Kotlin, XML and Jetpack Compose.**
 #### Docker
 
  We create a *docker enviroment* and a *dockerfile* to upload the
-backend server to *"render (web app)"* so anyone can use it. 
-
-#### If you want to use my API REST here it is:   [API of this app](https://fine-o4pw.onrender.com/)
+backend server to *"render (web app)"*
 
 #
 ### Android Studio Tech Used
