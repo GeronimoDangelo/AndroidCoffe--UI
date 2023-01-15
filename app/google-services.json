@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:259147712320:android:5674b6356d372f541d9ca5",
+        "mobilesdk_app_id": "1:259147712320:android:794f350dec02e6601d9ca5",
         "android_client_info": {
-          "package_name": "com.example.bookapp"
+          "package_name": "com.coffee.bookapp"
         }
       },
       "oauth_client": [

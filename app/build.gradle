@@ -12,7 +12,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.bookapp"
+        applicationId "com.coffee.bookapp"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -126,4 +126,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    //add mob
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
 }
